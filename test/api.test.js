@@ -39,6 +39,11 @@ async function request(method, path, body, expected = 200) {
         headers: body === undefined ? {} : { 'Content-Type': 'application/json' },
         body: body === undefined ? undefined : JSON.stringify(body)
     });
+    if (expected === 204) {
+        assert.equal(response.status, 204);
+        assert.equal(await response.text(), '');
+        return;
+    }
     const result = await response.json();
     assert.equal(response.status, expected, JSON.stringify(result));
     assert.deepEqual(Object.keys(result).sort(), ['data', 'message']);
@@ -252,10 +257,10 @@ test('deleting tasks and users cleans pending and completed references', async (
     const pending = await createTask({ assignedUser: user._id });
     const completed = await createTask({ assignedUser: user._id, completed: true });
     const removed = await createTask({ assignedUser: user._id });
-    await request('DELETE', `/tasks/${removed._id}`);
+    await request('DELETE', `/tasks/${removed._id}`, undefined, 204);
     await request('GET', `/tasks/${removed._id}`, undefined, 404);
     await assertConsistent();
-    await request('DELETE', `/users/${user._id}`);
+    await request('DELETE', `/users/${user._id}`, undefined, 204);
     await request('GET', `/users/${user._id}`, undefined, 404);
     for (const task of [pending, completed]) {
         const result = await getTask(task._id);
