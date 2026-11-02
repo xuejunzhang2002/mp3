@@ -1,0 +1,2 @@
+tool,model,purpose,log_link
+OpenAI Codex,GPT-6,"Assisted with generating and debugging the Node.js, Express and Mongoose API, implementing validation and transactional user-task references, writing integration tests, configuring deployment, and resolving course autograder failures",https://github.com/xuejunzhang2002/mp3/blob/main/llm_logs/codex_usage.md
