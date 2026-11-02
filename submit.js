@@ -1,10 +1,5 @@
-// Self-check your MP3 against the course autograder.
-//
-// 1. Deploy your API (e.g. on Render) and set API_URL in .env to its base URL.
-// 2. Run:  npm run submit    (or: node submit.js)
-//
-// The autograder cannot reach localhost, so API_URL must be your deployed URL.
-// Requires Node 24 (LTS).
+// Course autograder client for Node.js 24.
+// API_URL identifies the publicly accessible deployment base URL.
 
 require('dotenv').config({ quiet: true });
 const API_URL = process.env.API_URL || "https://YOUR-APP-NAME.onrender.com";
